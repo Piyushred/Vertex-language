@@ -1,0 +1,44 @@
+
+
+Milestone 1
+Amulya Bodla(abodla)
+        Grammar rules:
+                Implemented grammar rules for conditional and arithmetic operations.
+        Verification:
+                Verified using test cases if the grammar is compliant with the grammar rules.
+Piyush Reddy(prmudire)
+        Design:
+                Optimized Workflow for the Grammar (by eliminating left recursion cases)
+        Validation:
+                Validated if all the required features could be implemented.
+Niharika Pothana(npothana)
+        Grammar rules: 
+                Implemented grammar rules for terminals and iterative loops. 
+        Validation:
+                Validated if all the required features could be implemented.	
+Ritesh Reddy(ranugu)
+        Design:
+                Established Constraints for the Grammar (regex, patterns for terminals., etc)
+        Verification:
+                Verified using test cases if the grammar is compliant with the grammar rules.
+
+
+Documentation has been done in a collaborative effort.
+
+For Milestone 2
+
+Amulya Bodla
+	Interpreter
+	Parser
+
+Niharika Pothana
+	Parser
+	Lexical Analyzer
+
+Piyush Reddy
+	Interpreter
+	Parser
+
+Ritesh Reddy
+	Interpreter
+	Lexical Analyzer
