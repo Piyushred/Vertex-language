@@ -1,0 +1,16 @@
+program → START block END.
+block → { commands_list }.
+commands_list → commands ; commands_list | commands ; .
+
+commands → print | declare | assign | if-else | while | for | ternary |expr .
+declare → DATATYPE VARCHAR .
+assign → VARCHAR ASSIGNOP expr | VARCHAR ASSIGNOP ALPHANUMERIC.
+if-else → IF ( compositeBool ) THEN block | IF ( compositeBool ) THEN block ELSE block .
+ternary → ( compositebool ) TERNARYOP expr TERNARYOP1 expr.
+
+print → PRINT expr|PRINT member.
+compositeBool → bool_expr COMPOSITEBOOLOP compositeBool | bool_expr.
+bool_expr → expr COMPAREOP expr | NOT expr | BOOL.
+expr → component ADDSUB expr | component.
+component → member MULDIV component | member .
+member → NUMBERS|VARCHAR.
