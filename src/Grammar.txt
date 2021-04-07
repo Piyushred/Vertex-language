@@ -6,6 +6,11 @@ commands → print | declare | assign | if-else | while | for | ternary |expr .
 declare → DATATYPE VARCHAR .
 assign → VARCHAR ASSIGNOP expr | VARCHAR ASSIGNOP ALPHANUMERIC.
 if-else → IF ( compositeBool ) THEN block | IF ( compositeBool ) THEN block ELSE block .
+
+for → FOR (loopScope) block| FOR VARCHAR IN RANGE ( NUMBERS,NUMBERS ) block.
+loopScope →VARCHAR ASSIGNOP expr DELIMITER VARCHAR COMPAREOP compositebool ; commands.
+while → WHILE ( compositebool ) block.
+
 ternary → ( compositebool ) TERNARYOP expr TERNARYOP1 expr.
 
 print → PRINT expr|PRINT member.
@@ -14,3 +19,27 @@ bool_expr → expr COMPAREOP expr | NOT expr | BOOL.
 expr → component ADDSUB expr | component.
 component → member MULDIV component | member .
 member → NUMBERS|VARCHAR.
+
+NUMBERS → ^[0-9]+$
+VARCHAR → ^[a-zA-Z_$][a-zA-Z_$0-9]*$
+ALPHANUMERIC→ ^[a-zA-Z_$0-9]*$
+PRINT → print
+ASSIGNOP → ‘=’
+COMPAREOP → ‘<=’ | ‘<’ | ‘>’ | ‘>=’ | ‘==’ | ‘! =’
+BOOL → true | false.
+ADDSUB → '+'|'-'.
+MULDIV → '*'|'/'.
+START → start.
+END → end.
+
+DATATYPE → int | bool | string .
+COMPOSITEBOOLOP → AND | OR
+TERNARYOP → ?
+TERNARYOP1 → :
+IF → if.
+ELSE → else.
+THEN → then.
+FOR → for.
+WHILE → while.
+IN → in.
+RANGE → range.
