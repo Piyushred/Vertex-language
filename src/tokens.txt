@@ -1,0 +1,50 @@
+% brackets
+	token("{") --> "{".
+	token("}") --> "}".
+	token("(") --> "(".
+	token(")") --> ")".
+
+% Operators
+	token("=") --> "=".
+	token("<") --> "<".
+	token(">") --> ">".
+	token("<=") --> "<=".
+	token(">=") --> ">=".
+	token("==") --> "==".
+	token(";") --> ";".
+	
+% arithmetic operators
+	token("+") --> "+".
+	token("~") --> "~".
+	token("*") --> "*".
+	token("/") --> "/".
+
+% logical operators
+	token("OR") --> "OR".
+	token("|") --> "|".
+	token("AND") --> "AND".
+	token("&") --> "&".
+	token("NOT") --> "NOT".
+
+% looping conditions
+	token("if") --> "if".
+	token("then") --> "then".
+	token("else") --> "else".
+	token(":") --> ":".
+	token("?") --> "?".
+	token("while") --> "while".
+	token("for") --> "for".
+	token("in") --> "in".
+	token("range") --> "range".
+	
+% keywords
+	token("print") --> "print".
+	token("start") --> "start".
+	token("end") --> "end".
+
+% Data Types
+	token("int") --> "int".
+	token("bool") --> "bool".
+	token("string") --> "string".
+	token("true") --> "true".
+	token("false") --> "false".	
