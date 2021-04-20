@@ -60,10 +60,17 @@ bool_and(Val1,Val2,false):- Val1 = false;Val2 = false.
 bool_or(Val1,Val2,true):- Val1 = true; Val2 = true.
 bool_or(Val1,Val2,false):- Val1 = false, Val2 = false.
 
+eval_lessThan(Res1,Res2,true):- Res1<Res2.
+eval_lessThan(Res1,Res2,false):- Res1>=Res2.
+eval_greaterThan(Res1,Res2,true):- Res1>Res2.
+eval_greaterThan(Res1,Res2,false):- Res1=<Res2.
+
+
 eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,true):- eval_command(T1,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,true).
 eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,false):- eval_command(T1,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,true):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,true).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,false):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
+
 
 eval_value(t_integer(X),X):- number(X).
 eval_value(t_string(X),X):- string(X).
