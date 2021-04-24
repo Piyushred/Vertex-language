@@ -9,6 +9,8 @@ eval_command_list(cmd(T1,T2),Env,NewEnv) :- eval_command(T1,Env,Env1),eval_comma
 eval_command_list(T,Env,NewEnv) :- eval_command(T,Env,NewEnv).
 eval_command(declare(T1,T2),Env,NewEnv) :- eval_id(T2,Id), atom(Id),defaultValue(T1,Val),insert(Id,T1,Val,Env,NewEnv).
 eval_command(assign(T1,T2),Env,NewEnv):- eval_expr(T2,Env,Env1,Res1),eval_id(T1,Id), update(Id,Res1,Env1,NewEnv).
+eval_command(increment(T),Env,NewEnv):- eval_increment(T,Env,NewEnv,_).
+eval_command(decrement(T),Env,NewEnv):- eval_decrement(T,Env,NewEnv,_).
 eval_command(for(T1,T2),Env,NewEnv) :- eval_loopscope_initialize(T1,Env,Env1,true),eval_block(T2,Env1,Env2),eval_command(forLoop(T1,T2),Env2,NewEnv).
 eval_command(for(T1,_),Env,NewEnv) :- eval_loopscope_initialize(T1,Env,NewEnv,false).
 eval_command(forLoop(T1,T2),Env,NewEnv) :- eval_loopscope(T1,Env,Env1,true),eval_block(T2,Env1,Env2),eval_command(forLoop(T1,T2),Env2,NewEnv).
@@ -70,7 +72,15 @@ eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,true):- eval_command(T1,
 eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,false):- eval_command(T1,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,true):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,true).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,false):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
-
+eval_expr(expr_assign(T1,T2),Env,NewEnv,Res):- eval_expr(T2,Env,Env1,Res),eval_id(T1,Id), update(Id,Res,Env1,NewEnv).
+eval_expr(increment(T),Env,NewEnv,Res):- eval_increment(T,Env,NewEnv,Res).
+eval_expr(decrement(T),Env,NewEnv,Res):- eval_decrement(T,Env,NewEnv,Res).
+eval_expr(t_add(T1,T2), Env,NewEnv, Res):- eval_expr(T1,Env,Env1,Res1),eval_expr(T2,Env1,NewEnv,Res2), Res is Res1 + Res2.
+eval_expr(t_sub(T1,T2), Env,NewEnv, Res):- eval_expr(T1,Env,Env1,Res1),eval_expr(T2,Env1,NewEnv,Res2), Res is Res1 - Res2.
+eval_expr(t_mul(T1,T2), Env,NewEnv, Res):- eval_expr(T1,Env,Env1,Res1),eval_expr(T2,Env1,NewEnv,Res2), Res is Res1 * Res2.
+eval_expr(t_div(T1,T2), Env,NewEnv, Res):- eval_expr(T1,Env,Env1,Res1),eval_expr(T2,Env1,NewEnv,Res2), Res is Res1 / Res2.
+eval_expr(T,Env,Env,Res):- eval_value(T,Res).
+eval_expr(T,Env,Env,Res):- eval_id(T,Id),lookup(Id,Env,Res).
 
 eval_value(t_integer(X),X):- number(X).
 eval_value(t_string(X),X):- string(X).
