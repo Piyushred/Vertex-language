@@ -47,20 +47,26 @@ composite_boolean_expr(bool_and(T1,T2)) --> boolean_expr(T1),[and], composite_bo
 composite_boolean_expr(bool_or(T1,T2)) --> boolean_expr(T1),[or], composite_boolean_expr(T2).
 
 boolean_expr(lessThan(T1,T2)) --> expression(T1),[<],expression(T2).
-boolean_expr(isEqual(T1,T2)) --> expression(T1),[=],expression(T2).
+boolean_expr(isEqual(T1,T2)) --> expression(T1),[=],[=],expression(T2).
 boolean_expr(isNotEqual(T1,T2)) --> expression(T1),[~],expression(T2).
 boolean_expr(greaterThan(T1,T2)) --> expression(T1),[>],expression(T2).
-boolean_expr(greaterThanEq(T1,T2)) --> expression(T1),[>=],expression(T2).
-boolean_expr(lesserThanEq(T1,T2)) --> expression(T1),[<=],expression(T2).
+boolean_expr(greaterThanEq(T1,T2)) --> expression(T1),[>],[=],expression(T2).
+boolean_expr(lesserThanEq(T1,T2)) --> expression(T1),[<],[=],expression(T2).
 
 boolean_expr(not_BoolExp(T)) --> [not],boolean_expr(T).
 boolean_expr(false) --> [false].
 boolean_expr(true) --> [true].
 
+expression(t_string_reverse(T)) --> [reverse],[‘(‘],stringword(T),[‘)’].
+expression(t_string_concat(T1,T2)) --> [concat],[‘(‘],stringword(T1),[‘,’],stringword(T2),[‘)’].
+
 expression(expr_assign(T1,T2)) --> identifier(T1),[=],expression(T2).
 expression(t_add(T1,T2)) --> expression(T1),[+],term(T2).
 expression(t_sub(T1,T2)) --> expression(T1),[-],term(T2).
 expression(T) --> term(T).
+
+expression(increment(T)) --> identifier(T),[‘+’],[‘+’].
+expression(decrement(T)) --> identifier(T),[‘-‘],[‘-‘].
 
 term(t_mul(T1,T2)) --> term(T1),[*],element(T2).
 term(t_div(T1,T2)) --> term(T1),[/],element(T2).
