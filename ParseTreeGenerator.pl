@@ -1,5 +1,30 @@
 :- table expression/3,term/3.
+%:Lexer
+vertex(FileName) :- writeln("Compilation started"),
+		  open(FileName, read, InStream),
+		  input(InStream,InputString),
+		  tokenizer(InputString, Tokens),
+		  program(ParseTree,Tokens,[]),
+		  close(InStream),
+		  writeln("Compilation completed"),
+		  open('intermediateCode.intc', write, OutStream),
+		  writeq(OutStream, ParseTree),
+		  write(OutStream, '.'),
+		  close(OutStream).
 
+input(InStream,[]):-at_end_of_stream(InStream).
+input(InStream,[TokenCode|RemTokens]):- get_code(InStream,TokenCode),input(InStream,RemTokens).
+
+tokenizer([],[]).
+tokenizer([Code|Rem],Tokens):-char_type(Code,space),tokenizer(Rem,Tokens),!.
+tokenizer([Code|Codes],[Strings|Tokens]):-char_type(Code,alnum), wordSplit([Code|Codes],Words,Rem), name(Word,Words), atom_string(Word,Strings), tokenizer(Rem,Tokens),!.
+tokenizer([Code|Rem],[Strings|Tokens]):-name(Char,[Code]), atom_string(Char,Strings), tokenizer(Rem,Tokens).
+
+wordSplit([Code1,Code2|Rem],[Code1|Words],Res):-char_type(Code2,alnum), wordSplit([Code2|Rem],Words,Res).
+wordSplit([Code1|Rem],[Code1],Rem).
+
+
+% Parser
 program(start(T)) --> ["start"], block(T),["end"].
 block(block(T)) --> ["{"],command_list(T),["}"].
 
