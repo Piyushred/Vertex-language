@@ -72,7 +72,11 @@ eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,true):- eval_command(T1,
 eval_loopscope_initialize(loopScope(T1,T2,_),Env,NewEnv,false):- eval_command(T1,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,true):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,true).
 eval_loopscope(loopScope(_,T2,T3),Env,NewEnv,false):- eval_command(T3,Env,Env1),eval_comp_bool(T2,Env1,NewEnv,false).
+
+
 eval_expr(expr_assign(T1,T2),Env,NewEnv,Res):- eval_expr(T2,Env,Env1,Res),eval_id(T1,Id), update(Id,Res,Env1,NewEnv).
+eval_expr(t_string_reverse(T),Env,Env,Res):- eval_expr(T,Env,Env,Str),string(Str),string_to_list(Str,L),reverse(L,Rev),string_to_list(Res,Rev).
+eval_expr(t_string_concat(T1,T2),Env,Env,Res) :- eval_expr(T1,Env,Env,R1),eval_expr(T2,Env,Env,R2),string(R1),string(R2),string_concat(R1,R2,Res).
 eval_expr(increment(T),Env,NewEnv,Res):- eval_increment(T,Env,NewEnv,Res).
 eval_expr(decrement(T),Env,NewEnv,Res):- eval_decrement(T,Env,NewEnv,Res).
 eval_expr(t_add(T1,T2), Env,NewEnv, Res):- eval_expr(T1,Env,Env1,Res1),eval_expr(T2,Env1,NewEnv,Res2), Res is Res1 + Res2.
