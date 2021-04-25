@@ -12,7 +12,8 @@ vertex(FileName) :- writeln("Compilation start!"),
 		  open('intermediateCode.intc', write, OutStream),
 		  writeq(OutStream, ParseTree),
 		  write(OutStream, '.'),
-		  close(OutStream).
+		  close(OutStream),
+		  run('intermediateCode.intc').
 
 
 
