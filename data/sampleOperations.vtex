@@ -1,0 +1,10 @@
+start
+{
+dispaly(1+2);
+display(1-2);
+display(1*2);
+display(1/2);
+
+}
+
+end

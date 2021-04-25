@@ -1,0 +1,20 @@
+
+start
+{
+int a=1;
+int b=2;
+int c=3;
+if(a<b AND b<c)then{
+display(a);
+}
+if(a<=b AND b<=c)then{
+display(a);
+}
+if(b>a OR c<b)then{
+display(b);
+}
+if(b<=a OR c>=b)then{
+display(c);
+}
+}
+end

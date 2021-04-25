@@ -1,0 +1,17 @@
+start
+{
+bool a=true;
+if(a)then{
+display(a);
+}
+if(a=true)then
+{
+display(a);
+}
+a=false;
+if(not a)then{
+display(a);
+}
+
+}
+end

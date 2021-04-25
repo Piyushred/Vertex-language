@@ -1,0 +1,8 @@
+start
+{
+int a=1;
+int b=2;
+displayln(1+2);
+displayln(a+b);
+}
+end

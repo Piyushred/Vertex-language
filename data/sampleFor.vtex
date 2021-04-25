@@ -1,0 +1,8 @@
+start
+{
+int a=0;
+for(a=0;a<5;a=a+1){
+display(a);
+}
+}
+end

@@ -1,0 +1,22 @@
+start
+{
+int a=1;
+int b=2;
+if(a<b)then
+{
+display(a);
+}
+if(a<=b)then
+{
+display(a);
+}
+if(b>a)then
+{
+display(b);
+}
+if(b>=a)then
+{
+display(b);
+}
+}
+end

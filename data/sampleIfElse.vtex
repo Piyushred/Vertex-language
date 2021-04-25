@@ -1,0 +1,12 @@
+start
+{
+int a=1;
+int b=2;
+if(a<b) then {
+display(b);
+}
+else{
+display(a);
+}
+}
+end

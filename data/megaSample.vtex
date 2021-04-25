@@ -1,0 +1,48 @@
+    start
+    {
+    int a;
+    int b=10;
+    displayln("For Loop");
+    for(a=9;a>0;a--){
+        display(a);
+    }
+    displayln();
+    display("For Range output -> ");
+    for(a in range (11,20)){
+        display(a);
+        display(", ");
+    }
+    displayln();
+    display("While loop output -> ");
+    while(a<30){
+        display(a);
+        display(", ");
+        a++;
+    }
+    displayln();
+    displayln("If Then");
+    if(a<b)then{
+        display("Ifthen success");
+    }
+    display("If Else's if output -> ");
+    if(a<=b)then{
+        displayln(a+b);
+    }
+    else{
+        displayln(a-b);
+    }
+    display("If Else's else output -> ");
+    if(a>b)then{
+        displayln(a+b);
+    }
+    else{
+        displayln(a-b);
+    }
+    string str = "gnirts desrever si sihT" ;
+    displayln(reverse(str));
+    string str1= "Happy";
+    string str2= " Times";
+    display("After concating str1 and str2 we get");
+    displayln(concat(str1,str2));
+    }
+    end
