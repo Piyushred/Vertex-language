@@ -1,14 +1,11 @@
 :- table expression/3,term/3.
 
-vertex(FileName) :- writeln("Compilation start!"),
-		  open(FileName, read, InStream),
+vertex(FileName) :- open(FileName, read, InStream),
 		  input(InStream,InputString),
 		  tokenizer(InputString, Tokens),
 		  preprocessor(Tokens,ProcessedTokens),
-		  writeln("Preprocessing DONE!"),
 		  program(ParseTree,ProcessedTokens,[]),
 		  close(InStream),
-		  writeln("Compilation successful!"),
 		  open('intermediateCode.intc', write, OutStream),
 		  writeq(OutStream, ParseTree),
 		  write(OutStream, '.'),
