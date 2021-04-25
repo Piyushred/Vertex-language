@@ -13,19 +13,26 @@ vertex(FileName) :- open(FileName, read, InStream),
 		  run('intermediateCode.intc').
 
 
+%Input stream converts the source code into the corresponding character codes and passes it to the tokenizer.
 
 input(InStream,[]):-at_end_of_stream(InStream).
 input(InStream,[TokenCode|RemTokens]):- get_code(InStream,TokenCode),input(InStream,RemTokens).
+
+%This block of code generates a list of tokens by checking for char codes generated from the input stream file. 
+%The character codes are checked for spaces, alphanumerics and other characters.
 
 tokenizer([],[]).
 tokenizer([Code|Rem],Tokens):-char_type(Code,space),tokenizer(Rem,Tokens),!.
 tokenizer([Code|Codes],[Strings|Tokens]):-char_type(Code,alnum), wordSplit([Code|Codes],Words,Rem), name(Word,Words), atom_string(Word,Strings), tokenizer(Rem,Tokens),!.
 tokenizer([Code|Rem],[Strings|Tokens]):-name(Char,[Code]), atom_string(Char,Strings), tokenizer(Rem,Tokens).
 
+%wordSplit function is called when an alphanumeric char code is encountered and combines the all the tokens before it into a single entity until a space is encountered.
+%The characters are combined into a single entity and returned to the tokenizer.  
+
 wordSplit([Code1,Code2|Rem],[Code1|Words],Res):-char_type(Code2,alnum), wordSplit([Code2|Rem],Words,Res).
 wordSplit([Code1|Rem],[Code1],Rem).
 
-%Preprocessor
+%Preprocessor function for combining words within the same string as a single entity.
 
 preprocessor([],[]).
 preprocessor([H|T],[H,Str,H1|R1]) :- H = "\"" , processor(T,[H1|T1],R),atom_string(R,Str),preprocessor(T1,R1).
