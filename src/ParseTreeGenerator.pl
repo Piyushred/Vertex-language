@@ -1,16 +1,20 @@
 :- table expression/3,term/3.
-%:Lexer
-vertex(FileName) :- writeln("Compilation started"),
+
+vertex(FileName) :- writeln("Compilation start!"),
 		  open(FileName, read, InStream),
 		  input(InStream,InputString),
 		  tokenizer(InputString, Tokens),
-		  program(ParseTree,Tokens,[]),
+		  preprocessor(Tokens,ProcessedTokens),
+		  writeln("Preprocessing DONE!"),
+		  program(ParseTree,ProcessedTokens,[]),
 		  close(InStream),
-		  writeln("Compilation completed"),
+		  writeln("Compilation successful!"),
 		  open('intermediateCode.intc', write, OutStream),
 		  writeq(OutStream, ParseTree),
 		  write(OutStream, '.'),
 		  close(OutStream).
+
+
 
 input(InStream,[]):-at_end_of_stream(InStream).
 input(InStream,[TokenCode|RemTokens]):- get_code(InStream,TokenCode),input(InStream,RemTokens).
@@ -23,8 +27,17 @@ tokenizer([Code|Rem],[Strings|Tokens]):-name(Char,[Code]), atom_string(Char,Stri
 wordSplit([Code1,Code2|Rem],[Code1|Words],Res):-char_type(Code2,alnum), wordSplit([Code2|Rem],Words,Res).
 wordSplit([Code1|Rem],[Code1],Rem).
 
+%Preprocessor
 
-% Parser
+preprocessor([],[]).
+preprocessor([H|T],[H,Str,H1|R1]) :- H = "\"" , processor(T,[H1|T1],R),atom_string(R,Str),preprocessor(T1,R1).
+preprocessor([H|T],[H|R]) :- H \= "\"" , preprocessor(T,R).
+
+processor([H|T],L,R) :- H\= "\"",atom_string(H,H1),processor(T,L,R1),string_concat(H1," ",R2),string_concat(R2,R1,R).
+processor([H|T],[H|T],"") :- H = "\"".
+
+% ParseTree
+
 program(start(T)) --> ["start"], block(T),["end"].
 block(block(T)) --> ["{"],command_list(T),["}"].
 
@@ -40,9 +53,8 @@ datatype(int) --> ["int"].
 datatype(bool) --> ["bool"].
 datatype(string) --> ["string"].
 
-
 value(t_string(S)) --> ["\""],[S], {string(S)},["\""].
-value(t_integer(N)) --> [M],{atom_number(M,N)}.%[N],{integer(N)}.
+value(t_integer(N)) --> [M],{atom_number(M,N)}.
 value(t_bool(true)) --> ["true"].
 value(t_bool(false)) --> ["false"].
 
@@ -66,8 +78,8 @@ command_ternary(ternary(T1,T2,T3)) --> ["("], composite_boolean_expr(T1),[")"], 
 loopscope(loopScope(T1,T2,T3)) --> command_assign(T1),[";"],composite_boolean_expr(T2),[";"], command_assign(T3).
 % Boolean expressions
 composite_boolean_expr(T) --> boolean_expr(T).
-composite_boolean_expr(bool_and(T1,T2)) --> boolean_expr(T1),["and"], composite_boolean_expr(T2).
-composite_boolean_expr(bool_or(T1,T2)) --> boolean_expr(T1),["or"], composite_boolean_expr(T2).
+composite_boolean_expr(bool_and(T1,T2)) --> boolean_expr(T1),["AND"], composite_boolean_expr(T2).
+composite_boolean_expr(bool_or(T1,T2)) --> boolean_expr(T1),["OR"], composite_boolean_expr(T2).
 boolean_expr(T) --> expression(T).
 boolean_expr(isEqual(T1,T2)) --> expression(T1),["="],["="],expression(T2).
 boolean_expr(isNotEqual(T1,T2)) --> expression(T1),["~"],expression(T2).
