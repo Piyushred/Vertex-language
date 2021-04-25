@@ -2,20 +2,22 @@ program → START block END.
 block → { commands_list }.
 commands_list → commands ; commands_list | commands ; .
 
-commands → print | declare | assign | if-else | while | for | ternary |expr .
-declare → DATATYPE VARCHAR .
-assign → VARCHAR ASSIGNOP expr | VARCHAR ASSIGNOP ALPHANUMERIC.
-if-else → IF ( compositeBool ) THEN block | IF ( compositeBool ) THEN block ELSE block .
+commands → display | displayln | declare | assign | if-then | if-then-else | while | for | for-in-range | ternary | expr | block .
+declare → DATATYPE identifier |  DATATYPE identifier = value.
+assign → identifier ASSIGNOP expr | identifier ASSIGNOP ternary | identifier++ | identifier--.
+if-else → IF ( compositeBool ) THEN block | IF ( compositeBool ) THEN block ELSE block.
+
+value → string | number | true | false.
 
 for → FOR (loopScope) block| FOR VARCHAR IN RANGE ( NUMBERS,NUMBERS ) block.
-loopScope →VARCHAR ASSIGNOP expr DELIMITER VARCHAR COMPAREOP compositebool ; commands.
+loopScope →  assign DELIMITER compositeBool DELIMITER assign.
 while → WHILE ( compositebool ) block.
 
 ternary → ( compositebool ) TERNARYOP expr TERNARYOP1 expr.
 
-print → PRINT expr|PRINT member.
-compositeBool → bool_expr COMPOSITEBOOLOP compositeBool | bool_expr.
-bool_expr → expr COMPAREOP expr | NOT expr | BOOL.
+display → DISPLAY expr|DISPLAY member.
+compositeBool → bool_expr | bool_expr AND compositeBool | bool_expr OR compositeBool | expr.
+bool_expr → expr | expr COMPAREOP expr | NOT expr | BOOL.
 expr → component ADDSUB expr | component.
 component → member MULDIV component | member .
 member → NUMBERS|VARCHAR.
@@ -23,9 +25,9 @@ member → NUMBERS|VARCHAR.
 NUMBERS → ^[0-9]+$
 VARCHAR → ^[a-zA-Z_$][a-zA-Z_$0-9]*$
 ALPHANUMERIC→ ^[a-zA-Z_$0-9]*$
-PRINT → print
+DISPLAY → display
 ASSIGNOP → ‘=’
-COMPAREOP → ‘<=’ | ‘<’ | ‘>’ | ‘>=’ | ‘==’ | ‘! =’
+COMPAREOP → ‘<=’ | ‘<’ | ‘>’ | ‘>=’ | ‘==’ | ‘~’
 BOOL → true | false.
 ADDSUB → '+'|'-'.
 MULDIV → '*'|'/'.
