@@ -1,16 +1,16 @@
 # SER502-Spring2021-Team2
-Vertex Language ( Lexical Analyzer, Parser, Runtime ) By: Piyush Reddy Mudireddy, Ritesh Reddy Anugu, Amulya Bodla, Niharika Pothana.
+Vertex Language ( Lexical Analyzer, Parser, Interpretor ) By: Piyush Reddy Mudireddy, Ritesh Reddy Anugu, Amulya Bodla, Niharika Pothana.
 
 Vertex Programming Language
 System Specifications
 Compiler and Runtime Environment:
 
-[Operating System] - Windows 10
-[Processor] - Intel(R) Core(TM) i5-8265U CPU
-[Memory] - >= 4 GB RAM
+Operating System - Windows 10
+Processor - Intel(R) Core(TM) i7 CPU
+RAM - 4 GB
 
 Tools Used:
-Prolog - A Declarative Programming Language for implementing the compiler and runtime environment.
+SWI-Prolog
 
 Installation
 [SWI-Prolog] 8.2.4-1 is used to run the program. This can be downloaded using the below link:
@@ -30,7 +30,7 @@ Build/Run Instructions
 Sample Run
 For Windows:
 
-Step 1 and 2 are consult one-time runs
+**Step 1 and 2 are consult one-time run**
 1) consult("C:\Users\Piyushred\Downloads\502\Vertex\ParseTreeGenerator.pl"). (Provide local filePaths)
 2) consult("C:\Users\Piyushred\Downloads\502\Vertex\Evaluator.pl").
 3) vertex("C:\Users\Piyushred\Downloads\502\Vertex\megaSample.pl").
@@ -49,12 +49,16 @@ Additioinal Features Implemented
 1) Implemented strongly typed datatypes.
 2) Supports nested block structures.
 3) Supports Increment(++) and Decrement(--) operators for integers.
-4) Supports comprator operations("<", "<=", ">", ">=", "==", "~"). (~ is not equals operator).
+4) Supports comparator operations("<", "<=", ">", ">=", "==", "~"). (~ is not equals operator).
 5) Supports paranthesis within expressions.
 6) Supports composite boolean expressions (expression1 OPERATOR(AND/OR) expression2).
+7) Supports display of expressions (provides the evaluated output).
 
 Team Members
 1) Amulya Bodla (abodla)
 2) Niharika Pothana (npothana)
 3) Piyush Mudireddy (prmudire)
 4) Ritesh Reddy Anugu (ranugu)
+
+Youtube link:
+https://www.youtube.com/watch?v=2xXFF17bFzA
