@@ -28,17 +28,23 @@ Documentation has been done in a collaborative effort.
 For Milestone 2
 
 Amulya Bodla
-	Interpreter
-	Parser
+	Implemented data types, type checking, ternery operator, while loop, boolean comparators, composite bool, not operator, display statement. (Interpreter)
+	Added command line statements to integrate lexer, parser, interpreter. (Code Integration)
+	Implemented boolean statements, relational operators. (Parser)
 
 Niharika Pothana
-	Parser
-	Lexical Analyzer
-
+	Implemented Lexer for generating tokens, preprocessor functionality. (Lexer)
+	Implemented string functionalities: Reverse and concatenation. (Parser)
+	Implemented Increment and Decrement operators. (Parser)
+	
 Piyush Reddy
-	Interpreter
-	Parser
+	Worked on bug fixes in various components of the program. 
+	Implemented block structured programming, declerations, assignment operation, conditional operators. (Parser)
+	Implemented for loop, for in range, boolean expressions, arithmetic operations. (Interpreter)
 
 Ritesh Reddy
-	Interpreter
-	Lexical Analyzer
+	Implemented lookup, update, environment specific functionalities. (Interpreter)
+	Implemented splitting characters within the tokenizer function. (Lexer)
+	Worked on writing test cases.
+	
+Collective efforts have been done for testing the code using different test cases.
