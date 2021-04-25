@@ -14,8 +14,8 @@ eval_block(block(T),Env,NewEnv) :- eval_command_list(T,Env,NewEnv),!.
 eval_command_list(cmd(T1,T2),Env,NewEnv) :- eval_command(T1,Env,Env1),eval_command_list(T2,Env1,NewEnv).
 eval_command_list(T,Env,NewEnv) :- eval_command(T,Env,NewEnv).
 
-eval_command(declare(T1,T2),Env,NewEnv) :- eval_id(T2,Id), atom(Id),defaultValue(T1,Val),insert(Id,T1,Val,Env,NewEnv).
-eval_command(declare(T1,T2,T3),Env,NewEnv) :- eval_id(T2,Id), atom(Id),eval_value(T3,Val),insert(Id,T1,Val,Env,NewEnv).
+eval_command(declare(T1,T2),Env,NewEnv) :- eval_id(T2,Id),defaultValue(T1,Val),insert(Id,T1,Val,Env,NewEnv).
+eval_command(declare(T1,T2,T3),Env,NewEnv) :- eval_id(T2,Id), eval_value(T3,Val),insert(Id,T1,Val,Env,NewEnv).
 eval_command(assign(T1,T2),Env,NewEnv):- eval_expr(T2,Env,Env1,Res1),eval_id(T1,Id), update(Id,Res1,Env1,NewEnv).
 eval_command(assign(T1,T2),Env,NewEnv):- eval_ternary(T2,Env,Env1,Res1),eval_id(T1,Id), update(Id,Res1,Env1,NewEnv).
 eval_command(increment(T),Env,NewEnv):- eval_increment(T,Env,NewEnv,_).
